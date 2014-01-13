@@ -31,8 +31,11 @@ public class Robot extends ScriptableObject {
 		
 	}
 	
+	
+	
 	@JSConstructor
 	public Robot(String url) {
+		
 		if(url=="null")
 			return;
 		

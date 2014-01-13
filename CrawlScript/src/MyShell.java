@@ -313,7 +313,7 @@ public class MyShell extends ScriptableObject {
 					// Some form of exception was caught by JavaScript and
 					// propagated up.
 					System.err.println(we.getWrappedException().toString());
-					we.printStackTrace();
+					//we.printStackTrace();
 				} catch (EvaluatorException ee) {
 					// Some form of JavaScript error.
 					System.err.println("js: " + ee.getMessage());
