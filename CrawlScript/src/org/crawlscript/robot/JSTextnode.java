@@ -38,6 +38,13 @@ public class JSTextnode extends ScriptableObject{
 		this.text=text;
 	}
 	
+	
+	@JSFunction
+	public String type()
+	{
+		return "text";
+	}
+	
 	@JSFunction
 	@Override
 	public String toString()
