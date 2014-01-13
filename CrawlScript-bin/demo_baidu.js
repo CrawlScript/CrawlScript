@@ -5,4 +5,5 @@ for(var i=0;i<links.size();i++)
 	link=links.get(i);
 	print(link.text());
 	print(link.attr("href"));
+	write("log.txt",link);
 }
