@@ -17,6 +17,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.Undefined;
 import org.mozilla.javascript.annotations.JSConstructor;
 import org.mozilla.javascript.annotations.JSFunction;
 
@@ -25,7 +26,10 @@ public class Robot extends ScriptableObject {
 	public String url;
 	public Document document;
 	
+	public final String mobileagent="Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
 
+	public final String winagent="Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0";
+	
 	public Robot()
 	{
 		
@@ -34,16 +38,32 @@ public class Robot extends ScriptableObject {
 	
 	
 	@JSConstructor
-	public Robot(String url) {
+	public Robot(String url,Object agentObj) {
+		
 		
 		if(url=="null")
 			return;
+		String agent=winagent;
+		if(agentObj!=Undefined.instance)
+		{
+			String type=Context.toString(agentObj);
+			if(type.equals("windows")||type.equals("win")||type.equals("w"))
+			{
+				agent=winagent;
+			}
+			else if(type.equals("mobile")||type.equals("m"))
+			{
+				agent=mobileagent;
+			}
+			else
+				agent=type;
+		}
 		
 		this.url = url;
 		try {
 			document = Jsoup
 					.connect(url)
-					.userAgent("Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0").get();
+					.userAgent(winagent).get();
 			System.err.println("ok");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

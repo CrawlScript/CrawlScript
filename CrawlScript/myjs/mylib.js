@@ -6,13 +6,9 @@ var $={};
 		return new RobotUtil();
 	},
 
-	_$.robot = function(urlparam) {
-		var url;
-		if (urlparam.url != undefined) {
-			url = urlparam.url;
-		} else
-			url = urlparam;
-		r=new Robot(url);
+	_$.robot = function(url,agent) {
+		
+		r=new Robot(url,agent);
 		return r;
 	},
 	
@@ -56,9 +52,9 @@ var $={};
 	}
 
 	
-	function _$(urlparam)
+	function _$(url,agent)
 	{
-		return _$.robot(urlparam).doc();
+		return _$.robot(url,agent).doc();
 	}
 
 	

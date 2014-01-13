@@ -1,0 +1,3 @@
+doc=$("http://www.baidu.com");
+link=doc.a(0);
+print(link.attr("href"));

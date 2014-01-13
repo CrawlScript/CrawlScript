@@ -101,6 +101,12 @@ public class JSDocument extends ScriptableObject{
 	}
 	
 	@JSFunction
+	public String html()
+	{
+		return data.html();
+	}
+	
+	@JSFunction
 	public Object div(Object index)
 	{
 		return createDoc("div",index);
