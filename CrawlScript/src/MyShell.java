@@ -12,6 +12,7 @@ import org.mozilla.javascript.*;
 
 import java.awt.image.ConvolveOp;
 import java.io.*;
+import java.util.UUID;
 
 /**
  * The shell program.
@@ -57,7 +58,7 @@ public class MyShell extends ScriptableObject {
 
 			// Define some global functions particular to the shell. Note
 			// that these functions are not part of ECMA.
-			String[] names = { "print", "quit", "version", "load", "help",
+			String[] names = { "print", "uid","quit", "version", "load", "help",
 					"write" };
 //			 shell.defineFunctionProperties(names, MyShell.class,
 //			 ScriptableObject.DONTENUM);
@@ -249,6 +250,12 @@ public class MyShell extends ScriptableObject {
 		}
 		return result;
 	}
+	
+	
+	public static String uid(Context cx, Scriptable thisObj, Object[] args,
+			Function funObj) {
+		return UUID.randomUUID().toString();
+	}
 
 	/**
 	 * Load and execute a set of JavaScript source files.
@@ -322,6 +329,8 @@ public class MyShell extends ScriptableObject {
 					System.err.println("js: " + jse.getMessage());
 				} catch (IOException ioe) {
 					System.err.println(ioe.toString());
+				}catch(Exception e){
+					System.err.println(e.getMessage());
 				}
 				if (quitting) {
 					// The user executed the quit() function.

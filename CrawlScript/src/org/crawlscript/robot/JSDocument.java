@@ -16,7 +16,7 @@ import org.mozilla.javascript.Undefined;
 import org.mozilla.javascript.annotations.JSConstructor;
 import org.mozilla.javascript.annotations.JSFunction;
 
-public class JSDocument extends ScriptableObject{
+public class JSDocument extends ScriptableObject implements DomDoc{
 
 	Elements data;
 	
@@ -219,6 +219,80 @@ public class JSDocument extends ScriptableObject{
 	public String getClassName() {
 		// TODO Auto-generated method stub
 		return "JSDocument";
+	}
+
+	@JSFunction
+	@Override
+	public Object hasText() {
+		// TODO Auto-generated method stub
+		return data.hasText();
+	}
+
+	@JSFunction
+	@Override
+	public Object first() {
+		// TODO Auto-generated method stub
+		if(data.first()==null)
+			return null;
+		Object[] arg={data.first()};
+		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSDocument", arg);
+		return resultdoc;
+	}
+
+	
+	@JSFunction
+	@Override
+	public Object pre() throws Exception {		
+		// TODO Auto-generated method stub
+		if(size()==1)
+		{
+			if(data.get(0).previousElementSibling()==null)
+				return null;
+			else
+			{
+				Object[] arg={data.get(0).previousElementSibling()};
+				Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSDocument", arg);
+				return resultdoc;
+			}
+		}
+		else
+		{
+			throw new Exception("not an element");
+		}
+				
+	}
+	
+	@JSFunction
+	@Override
+	public Object next() throws Exception {		
+		// TODO Auto-generated method stub
+		if(size()==1)
+		{
+			if(data.get(0).nextElementSibling()==null)
+				return null;
+			else
+			{
+				Object[] arg={data.get(0).nextElementSibling()};
+				Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSDocument", arg);
+				return resultdoc;
+			}
+		}
+		else
+		{
+			throw new Exception("not an element");
+		}
+				
+	}
+
+	@JSFunction
+	@Override
+	public Object last() {
+		// TODO Auto-generated method stub
+		if(data.last()==null)
+			return null; 
+		Object[] arg={data.last()};
+		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSDocument", arg);
+		return resultdoc;
 	}
 
 	
