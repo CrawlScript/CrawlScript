@@ -17,8 +17,7 @@ import java.io.StringReader;
 
 import org.crawlscript.robot.JSDocument;
 import org.crawlscript.robot.Mysql;
-import org.crawlscript.robot.Robot;
-import org.crawlscript.robot.RobotUtil;
+
 import org.mozilla.javascript.*;
 
 /**
@@ -73,8 +72,7 @@ public class RunScript extends ScriptableObject {
 			RunScript runscript = new RunScript();
 			scope = cx.initStandardObjects(runscript);
 			try {
-				ScriptableObject.defineClass(runscript, Robot.class);
-				ScriptableObject.defineClass(runscript, RobotUtil.class);
+				
 				ScriptableObject.defineClass(runscript, JSDocument.class);
 				ScriptableObject.defineClass(runscript, Mysql.class);
 			} catch (Exception e) {
@@ -115,8 +113,7 @@ public class RunScript extends ScriptableObject {
 			RunScript runscript = new RunScript();
 			Scriptable scope = cx.initStandardObjects(runscript);
 			try {
-				ScriptableObject.defineClass(runscript, Robot.class);
-				ScriptableObject.defineClass(runscript, RobotUtil.class);
+			
 			} catch (Exception e) {
 
 			}

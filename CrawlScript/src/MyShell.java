@@ -5,12 +5,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 import org.crawlscript.robot.JSDocument;
+import org.crawlscript.robot.JSElement;
+import org.crawlscript.robot.JSElements;
+import org.crawlscript.robot.JSTextnode;
 import org.crawlscript.robot.Mysql;
-import org.crawlscript.robot.Robot;
-import org.crawlscript.robot.RobotUtil;
+
 import org.mozilla.javascript.*;
 
-import java.awt.image.ConvolveOp;
 import java.io.*;
 import java.util.UUID;
 
@@ -48,9 +49,10 @@ public class MyShell extends ScriptableObject {
 			cx.initStandardObjects(shell);
 			
 			try {
-				ScriptableObject.defineClass(shell, Robot.class);
-				ScriptableObject.defineClass(shell, RobotUtil.class);
 				ScriptableObject.defineClass(shell, JSDocument.class);
+				ScriptableObject.defineClass(shell, JSElement.class);
+				ScriptableObject.defineClass(shell, JSElements.class);
+				ScriptableObject.defineClass(shell, JSTextnode.class);
 				ScriptableObject.defineClass(shell, Mysql.class);
 			} catch (Exception e) {
 
@@ -64,9 +66,9 @@ public class MyShell extends ScriptableObject {
 //			 ScriptableObject.DONTENUM);
 			 shell.defineFunctionProperties(names, MyShell.class,
 					 ScriptableObject.DONTENUM);
-			 shell.processSource(cx, "myjs/mylib.js");
-			 shell.processSource(cx, "myjs/crawl.js");
-			 shell.processSource(cx, "myjs/user.js");
+			 shell.processSource(cx, "myjs/corelib.js");
+		//	 shell.processSource(cx, "myjs/crawl.js");
+		//	 shell.processSource(cx, "myjs/user.js");
 			
 			 
 			args = processOptions(cx, args);
