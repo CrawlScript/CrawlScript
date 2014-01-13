@@ -84,6 +84,12 @@ public class JSDocument extends JSElement{
 	 * super
 	 */
 	
+	@JSFunction
+	@Override
+	public String type()
+	{
+		return "document";
+	}
 	
 	@JSFunction
 	@Override

@@ -101,6 +101,12 @@ public class JSElements extends ScriptableObject {
 
 	
 	@JSFunction
+	public String type()
+	{
+		return "elements";
+	}
+	
+	@JSFunction
 	public String text()
 	{
 		return data.text();

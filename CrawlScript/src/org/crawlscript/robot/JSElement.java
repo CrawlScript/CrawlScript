@@ -143,6 +143,11 @@ public class JSElement extends ScriptableObject{
 				    		  
 	}
 
+	@JSFunction
+	public String type()
+	{
+		return "element";
+	}
 
 	
 	@JSFunction
@@ -278,6 +283,7 @@ public class JSElement extends ScriptableObject{
 		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSElements",arg);
 		return resultdoc;
 	}
+	
 	
 	
 	@JSFunction
