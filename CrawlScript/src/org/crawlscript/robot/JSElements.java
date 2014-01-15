@@ -27,29 +27,15 @@ public class JSElements extends ScriptableObject {
 		
 	}
 	
-	@JSFunction
-	public Object get(int i) {
-		if(data.get(i)==null)
-			return null;
-		Object[] arg={data.get(i)};
-		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSElement",arg);
-		return resultdoc;
-		
-	}
-	
-	@JSFunction
-	public int size()
-	{
-		return data.size();
-		
-	}
-	
-
-	
-	
 	@JSConstructor
 	public JSElements(Object data) {
 			this.data=(Elements)data;
+	}
+	
+	@JSFunction
+	public Object a(Object index)
+	{
+		return createDoc("a",index);
 	}
 	
 	@JSFunction
@@ -68,95 +54,15 @@ public class JSElements extends ScriptableObject {
 		return result;
 	}
 	
-	
-	@JSFunction
-	public String regex(String regexstr)
-	{
-        Pattern pattern = Pattern.compile(regexstr);
-        Matcher matcher = pattern.matcher(data.html());
-        if (matcher.find()) {// matcher.matchers() {
-            String fqdnId = matcher.group();
-            return fqdnId;
-        }
-        
-        return null;
-	}
-	
-	@JSFunction
-	public void each(String selectorstr,Object fObj)
-	{	 
-		    Function f = (Function)fObj;		
-		 	Elements eles=data.select(selectorstr);
-			for(int i=0;i<eles.size();i++)
-			{
-				
-				
-				Object[] arg={eles.get(i)};
-				Scriptable resultele=Context.getCurrentContext().newObject(this, "JSElement",arg);
-				Object functionArgs[] = { resultele ,i};
-				Object result = f.call(Context.getCurrentContext(), this, this, functionArgs);
-			}		    		  
-	}
-	
-
-	
-	
-	
-	@JSFunction
-	public String html()
-	{
-		return data.html();
-	}
-	
-	@JSFunction
-	public Object first()
-	{
-		return data.first();
-	}
-	
-	@JSFunction
-	public Object last()
-	{
-		return data.last();
-	}
-	
-	@JSFunction
-	public Object div(Object index)
-	{
-		return createDoc("div",index);
-	}
-	
-	@JSFunction
-	public Object table(Object index)
-	{
-		return createDoc("table",index);
-	}
-	
-	@JSFunction
-	public Object tbody(Object index)
-	{
-		return createDoc("tbody",index);
-	}
-	
-	@JSFunction
-	public Object tr(Object index)
-	{
-		return createDoc("tr",index);
-	}
-	
-	@JSFunction
-	public Object td(Object index)
-	{
-		return createDoc("td",index);
-	}
-	
 	@JSFunction
 	public Object body(Object index)
 	{
 		return createDoc("body",index);
 	}
 	
-	public Scriptable createDoc(String selector,Object index)
+	
+	
+	protected Scriptable createDoc(String selector,Object index)
 	{
 		Elements result;
 		Elements temp=data.select(selector);
@@ -190,16 +96,138 @@ public class JSElements extends ScriptableObject {
 	}
 	
 	@JSFunction
+	public Object div(Object index)
+	{
+		return createDoc("div",index);
+	}
+	
+	@JSFunction
+	public void each(String selectorstr,Object fObj)
+	{	 
+		    Function f = (Function)fObj;		
+		 	Elements eles=data.select(selectorstr);
+			for(int i=0;i<eles.size();i++)
+			{
+				
+				
+				Object[] arg={eles.get(i)};
+				Scriptable resultele=Context.getCurrentContext().newObject(this, "JSElement",arg);
+				Object functionArgs[] = { resultele ,i};
+				Object result = f.call(Context.getCurrentContext(), this, this, functionArgs);
+			}		    		  
+	}
+	
+
+	@JSFunction
+	public Object first()
+	{
+		Object[] arg={data.first()};
+		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSElement",arg);
+		return resultdoc;
+	}
+	
+	@JSFunction
+	public Object get(int i) {
+		if(data.get(i)==null)
+			return null;
+		Object[] arg={data.get(i)};
+		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSElement",arg);
+		return resultdoc;
+		
+	}
+	
+	
+	
+	@Override
+	public String getClassName() {
+		// TODO Auto-generated method stub
+		return "JSElements";
+	}
+	
+
+	
+	@JSFunction
+	public String html()
+	{
+		return data.outerHtml();
+	}
+	
+	
+	
+	@JSFunction
+	public Object img(Object index)
+	{
+		return createDoc("img",index);
+	}
+
+	@JSFunction
+	public String innerhtml()
+	{
+		return data.html();
+	}
+	
+	
+	@JSFunction
+	public Object last()
+	{
+		Object[] arg={data.last()};
+		Scriptable resultdoc=Context.getCurrentContext().newObject(this, "JSElement",arg);
+		return resultdoc;
+	}
+	
+	
+	@JSFunction
+	public String regex(String regexstr)
+	{
+        Pattern pattern = Pattern.compile(regexstr);
+        Matcher matcher = pattern.matcher(data.html());
+        if (matcher.find()) {// matcher.matchers() {
+            String fqdnId = matcher.group();
+            return fqdnId;
+        }
+        
+        return null;
+	}
+	
+	
+	
+	@JSFunction
+	public Object table(Object index)
+	{
+		return createDoc("table",index);
+	}
+	
+	@JSFunction
+	public Object tbody(Object index)
+	{
+		return createDoc("tbody",index);
+	}
+	
+	@JSFunction
+	public Object td(Object index)
+	{
+		return createDoc("td",index);
+	}
+	
+	@JSFunction
+	public Object tr(Object index)
+	{
+		return createDoc("tr",index);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@JSFunction
 	public Object p(Object index)
 	{
 		return createDoc("p",index);
 	}
 	
-	@JSFunction
-	public Object a(Object index)
-	{
-		return createDoc("a",index);
-	}
+	
 	
 	@JSFunction
 	public Object ul(Object index)
@@ -214,11 +242,7 @@ public class JSElements extends ScriptableObject {
 	}
 	
 	
-	@JSFunction
-	public Object img(Object index)
-	{
-		return createDoc("img",index);
-	}
+	
 	
 	
 	@JSFunction
@@ -230,18 +254,25 @@ public class JSElements extends ScriptableObject {
 		return resultdoc;
 	}
 	
-	
-	
 	@JSFunction
-	public String type()
+	public int size()
 	{
-		return "elements";
+		return data.size();
+		
 	}
+	
+	
 	
 	@JSFunction
 	public String text()
 	{
 		return data.text();
+	}
+	
+	@JSFunction
+	public String type()
+	{
+		return "elements";
 	}
 	
 	@JSFunction
@@ -251,11 +282,7 @@ public class JSElements extends ScriptableObject {
 		return text();
 	}
 	
-	@Override
-	public String getClassName() {
-		// TODO Auto-generated method stub
-		return "JSElements";
-	}
+	
 
 	
 	

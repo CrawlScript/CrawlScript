@@ -69,29 +69,27 @@ public class JSDocument extends JSElement{
 	
 	
 	
+	@JSFunction
 	@Override
-	public String getClassName() {
+	public Object a(Object index) {
 		// TODO Auto-generated method stub
-		return "JSDocument";
+		return super.a(index);
 	}
-	
-	@JSFunction
-	public String title()
-	{
-		return document.title();
-	}
-	
-	/*
-	 * super
-	 */
-	
+
 	@JSFunction
 	@Override
-	public String type()
-	{
-		return "document";
+	public String attr(String attrname) {
+		// TODO Auto-generated method stub
+		return super.attr(attrname);
 	}
-	
+
+	@JSFunction
+	@Override
+	public Object body(Object index) {
+		// TODO Auto-generated method stub
+		return super.body(index);
+	}
+
 	@JSFunction
 	@Override
 	public Object child(int i) {
@@ -101,10 +99,119 @@ public class JSDocument extends JSElement{
 
 	@JSFunction
 	@Override
-	public String attr(String attrname) {
+	public Object children() throws Exception {
 		// TODO Auto-generated method stub
-		return super.attr(attrname);
+		return super.children();
 	}
+
+	@JSFunction
+	@Override
+	public Object div(Object index) {
+		// TODO Auto-generated method stub
+		return super.div(index);
+	}
+
+	@JSFunction
+	@Override
+	public void each(String selectorstr, Object fObj) {
+		// TODO Auto-generated method stub
+		super.each(selectorstr, fObj);
+	}
+
+	@Override
+	public String getClassName() {
+		// TODO Auto-generated method stub
+		return "JSDocument";
+	}
+	
+	
+	
+	
+	
+
+	
+	
+	/*
+	 * super
+	 */
+	
+	@JSFunction
+	@Override
+	public String html() {
+		// TODO Auto-generated method stub
+		return super.html();
+	}
+
+
+	@JSFunction
+	@Override
+	public Object img(Object index) {
+		// TODO Auto-generated method stub
+		return super.img(index);
+	}
+
+	@JSFunction
+	@Override
+	public String innerhtml() {
+		// TODO Auto-generated method stub
+		return super.innerhtml();
+	}
+
+	@JSFunction
+	@Override
+	public Object li(Object index) {
+		// TODO Auto-generated method stub
+		return super.li(index);
+	}
+
+	@JSFunction
+	@Override
+	public Object link() {
+		// TODO Auto-generated method stub
+		return super.link();
+	}
+
+	@JSFunction
+	@Override
+	public Object next() {
+		// TODO Auto-generated method stub
+		return super.next();
+	}
+
+	@JSFunction
+	@Override
+	public Object p(Object index) {
+		// TODO Auto-generated method stub
+		return super.p(index);
+	}
+
+	@JSFunction
+	@Override
+	public Object parent() {
+		// TODO Auto-generated method stub
+		return super.parent();
+	}
+	
+	@JSFunction
+	@Override
+	public Object pre() {
+		// TODO Auto-generated method stub
+		return super.pre();
+	}
+
+	@JSFunction
+	public String title()
+	{
+		return document.title();
+	}
+
+	@JSFunction
+	@Override
+	public String type()
+	{
+		return "document";
+	}
+	
 	@JSFunction
 	@Override
 	public String regex(String regexstr) {
@@ -113,33 +220,24 @@ public class JSDocument extends JSElement{
 	}
 	@JSFunction
 	@Override
-	public void each(String selectorstr, Object fObj) {
+	public Object select(String selector) {
 		// TODO Auto-generated method stub
-		super.each(selectorstr, fObj);
+		return super.select(selector);
 	}
+	
+	
+	@JSFunction
+	@Override
+	public Object siblings() {
+		// TODO Auto-generated method stub
+		return super.siblings();
+	}
+
 	@JSFunction
 	@Override
 	public void traverse(Object fObj) {
 		// TODO Auto-generated method stub
 		super.traverse(fObj);
-	}
-	@JSFunction
-	@Override
-	public String text() {
-		// TODO Auto-generated method stub
-		return super.text();
-	}
-	@JSFunction
-	@Override
-	public String html() {
-		// TODO Auto-generated method stub
-		return super.html();
-	}
-	@JSFunction
-	@Override
-	public Object div(Object index) {
-		// TODO Auto-generated method stub
-		return super.div(index);
 	}
 	@JSFunction
 	@Override
@@ -153,95 +251,26 @@ public class JSDocument extends JSElement{
 		// TODO Auto-generated method stub
 		return super.tbody(index);
 	}
-	@JSFunction
-	@Override
-	public Object tr(Object index) {
-		// TODO Auto-generated method stub
-		return super.tr(index);
-	}
+
 	@JSFunction
 	@Override
 	public Object td(Object index) {
 		// TODO Auto-generated method stub
 		return super.td(index);
 	}
+
 	@JSFunction
 	@Override
-	public Object body(Object index) {
+	public String text() {
 		// TODO Auto-generated method stub
-		return super.body(index);
+		return super.text();
 	}
+
 	@JSFunction
 	@Override
-	public Scriptable createDoc(String selector, Object index) {
+	public Object tr(Object index) {
 		// TODO Auto-generated method stub
-		return super.createDoc(selector, index);
-	}
-	@JSFunction
-	@Override
-	public Object p(Object index) {
-		// TODO Auto-generated method stub
-		return super.p(index);
-	}
-	@JSFunction
-	@Override
-	public Object a(Object index) {
-		// TODO Auto-generated method stub
-		return super.a(index);
-	}
-	@JSFunction
-	@Override
-	public Object ul(Object index) {
-		// TODO Auto-generated method stub
-		return super.ul(index);
-	}
-	@JSFunction
-	@Override
-	public Object li(Object index) {
-		// TODO Auto-generated method stub
-		return super.li(index);
-	}
-	@JSFunction
-	@Override
-	public Object img(Object index) {
-		// TODO Auto-generated method stub
-		return super.img(index);
-	}
-	@JSFunction
-	@Override
-	public Object select(String selector) {
-		// TODO Auto-generated method stub
-		return super.select(selector);
-	}
-	@JSFunction
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-	@JSFunction
-	@Override
-	public Object pre() {
-		// TODO Auto-generated method stub
-		return super.pre();
-	}
-	@JSFunction
-	@Override
-	public Object next() {
-		// TODO Auto-generated method stub
-		return super.next();
-	}
-	@JSFunction
-	@Override
-	public Object link() {
-		// TODO Auto-generated method stub
-		return super.link();
-	}
-	@JSFunction
-	@Override
-	public Object children() throws Exception {
-		// TODO Auto-generated method stub
-		return super.children();
+		return super.tr(index);
 	}
 	@JSFunction
 	@Override
@@ -254,6 +283,20 @@ public class JSDocument extends JSElement{
 	public String tagName() {
 		// TODO Auto-generated method stub
 		return super.tagName();
+	}
+
+	@JSFunction
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+
+	@JSFunction
+	@Override
+	public Object ul(Object index) {
+		// TODO Auto-generated method stub
+		return super.ul(index);
 	}
 
 	
