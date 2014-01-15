@@ -100,22 +100,24 @@ public class JSElements extends ScriptableObject {
 	
 
 	
-	@JSFunction
-	public String type()
-	{
-		return "elements";
-	}
 	
-	@JSFunction
-	public String text()
-	{
-		return data.text();
-	}
 	
 	@JSFunction
 	public String html()
 	{
 		return data.html();
+	}
+	
+	@JSFunction
+	public Object first()
+	{
+		return data.first();
+	}
+	
+	@JSFunction
+	public Object last()
+	{
+		return data.last();
 	}
 	
 	@JSFunction
@@ -228,6 +230,19 @@ public class JSElements extends ScriptableObject {
 		return resultdoc;
 	}
 	
+	
+	
+	@JSFunction
+	public String type()
+	{
+		return "elements";
+	}
+	
+	@JSFunction
+	public String text()
+	{
+		return data.text();
+	}
 	
 	@JSFunction
 	@Override

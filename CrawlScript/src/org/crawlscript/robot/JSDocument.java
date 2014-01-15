@@ -60,6 +60,7 @@ public class JSDocument extends JSElement{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
+			
 		}
 		data=document;
 	}

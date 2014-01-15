@@ -9,7 +9,6 @@ import org.crawlscript.robot.JSElement;
 import org.crawlscript.robot.JSElements;
 import org.crawlscript.robot.JSTextnode;
 import org.crawlscript.robot.Mysql;
-
 import org.mozilla.javascript.*;
 
 import java.io.*;
@@ -30,6 +29,45 @@ public class MyShell extends ScriptableObject {
 	public String getClassName() {
 		return "global";
 	}
+	
+	public static String charset="utf-8";
+	
+	public static void initConfig()
+	{
+		File configfile=new File("scriptconfig.txt");
+		if(!configfile.exists())
+		{
+			 charset= new java.io.OutputStreamWriter(new java.io.ByteArrayOutputStream()).getEncoding();
+				
+		}
+		else
+		{
+			try {
+				BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(configfile)));
+				String temp;
+				while((temp=br.readLine())!=null)
+				{
+					temp=temp.trim();
+					if(temp.startsWith("charset="))
+					{
+						charset=temp.replace("charset=", "").trim();
+						if(charset.equals("default"))
+						{
+							 charset= new java.io.OutputStreamWriter(new java.io.ByteArrayOutputStream()).getEncoding();							
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println("failed to read config file");
+				charset= new java.io.OutputStreamWriter(new java.io.ByteArrayOutputStream()).getEncoding();
+					
+			}
+		}
+		System.out.println("set charset="+charset);
+	}
+	
+		 
 
 	/**
 	 * Main entry point.
@@ -40,6 +78,7 @@ public class MyShell extends ScriptableObject {
 	 */
 	public static void main(String args[]) {
 		
+			initConfig();
 		// Associate a new Context with this thread
 		Context cx = Context.enter();
 		try {
@@ -62,13 +101,11 @@ public class MyShell extends ScriptableObject {
 			// that these functions are not part of ECMA.
 			String[] names = { "print", "uid","quit", "version", "load", "help",
 					"write" };
-//			 shell.defineFunctionProperties(names, MyShell.class,
-//			 ScriptableObject.DONTENUM);
+
 			 shell.defineFunctionProperties(names, MyShell.class,
 					 ScriptableObject.DONTENUM);
 			 shell.processSource(cx, "myjs/corelib.js");
-		//	 shell.processSource(cx, "myjs/crawl.js");
-		//	 shell.processSource(cx, "myjs/user.js");
+
 			
 			 
 			args = processOptions(cx, args);
@@ -153,32 +190,7 @@ public class MyShell extends ScriptableObject {
 		p("");
 	}
 
-	public static Object createRobot(Context cx, Scriptable thisObj, Object[] args,
-			Function funObj) {
-		if(args.length!=1)
-		{
-			System.err.println("input one url");
-			return null;
-		}
-		String s=Context.toString(args[0]);
-		 Object[] arg = { s};
-         Scriptable myCounter = cx.newObject(thisObj, "Robot", arg);
-         return myCounter;
-//         scope.put("myCounter", scope, myCounter);
-//
-//		return Context.javaToJS(new Robot(s), thisObj);
-		//		for (int i = 0; i < args.length; i++) {
-//			if (i > 0)
-//				System.out.print(" ");
-//
-//			// Convert the arbitrary JavaScript value into a string form.
-//			String s = Context.toString(args[i]);
-//
-//			System.out.print(s);
-//		}
-//		System.out.println();
-         
-	}
+	
 	
 	public static void write(Context cx, Scriptable thisObj, Object[] args,
 			Function funObj) {
@@ -283,8 +295,16 @@ public class MyShell extends ScriptableObject {
 	 */
 	private void processSource(Context cx, String filename) {
 		if (filename == null) {
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					System.in));
+			 
+			BufferedReader in=null;
+			try {
+				in = new BufferedReader(new InputStreamReader(
+						System.in,charset));
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				System.out.println(e1.getMessage());
+				return;
+			}
 			String sourceName = "<stdin>";
 			int lineno = 1;
 			boolean hitEOF = false;
