@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.UrlValidator;
+import org.crawlscript.net.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,57 +20,64 @@ import org.mozilla.javascript.Undefined;
 import org.mozilla.javascript.annotations.JSConstructor;
 import org.mozilla.javascript.annotations.JSFunction;
 
-public class JSDocument extends JSElement{
+public class JSDocument extends JSElement {
 	public String url;
 	public Document document;
-	public final String mobileagent="Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-	public final String winagent="Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0";
-	
-	
-	public JSDocument()
-	{
-		
-	}
-	
-	@JSConstructor
-	public JSDocument(String url,Object agentObj) {
-		
-		if(url=="null")
-			return;
-		String agent=winagent;
-		if(agentObj!=Undefined.instance)
-		{
-			String type=Context.toString(agentObj);
-			if(type.equals("windows")||type.equals("win")||type.equals("w"))
-			{
-				agent=winagent;
-			}
-			else if(type.equals("mobile")||type.equals("m"))
-			{
-				agent=mobileagent;
-			}
-			else
-				agent=type;
-		}
-		
-		this.url = url;
-		try {
-			document = Jsoup
-					.connect(url)
-					.userAgent(winagent).get();
-			System.err.println("ok");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-			
-		}
-		data=document;
+	public final String mobileagent = "Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+	public final String winagent = "Mozilla/5.0 (Windows NT 5.1; rv:22.0) Gecko/20100101 Firefox/22.0";
+
+	public JSDocument() {
+
 	}
 
-	
-	
-	
-	
+	private String getAgent(Object agentObj) {
+		String agent = winagent;
+		if (agentObj != Undefined.instance) {
+			String type = Context.toString(agentObj);
+			if (type.equals("windows") || type.equals("win")
+					|| type.equals("w")) {
+				agent = winagent;
+			} else if (type.equals("mobile") || type.equals("m")) {
+				agent = mobileagent;
+			} else
+				agent = type;
+		}
+		return agent;
+	}
+
+	@JSConstructor
+	public JSDocument(String url, Object agentObj, Object proxyipObj,
+			Object proxyportObj) {
+
+		if (url == "null")
+			return;
+		String html;
+		UrlValidator urlValidator = new UrlValidator();
+		if (urlValidator.isValid(url)) {
+
+			String agent = getAgent(agentObj);
+
+			Page page = new Page();
+
+			String proxyip = null;
+			Integer proxyport = null;
+			if (proxyipObj != Undefined.instance) {
+				proxyip = Context.toString(proxyipObj);
+			}
+			if (proxyportObj != Undefined.instance) {
+				proxyport = Double.valueOf(Context.toNumber(proxyportObj))
+						.intValue();
+			}
+
+			html = page.getHtmlAuto(url, agent, proxyip, proxyport);
+		} else
+			html = url;
+
+		document = Jsoup.parse(html);
+
+		data = document;
+	}
+
 	@JSFunction
 	@Override
 	public Object a(Object index) {
@@ -123,25 +132,17 @@ public class JSDocument extends JSElement{
 		// TODO Auto-generated method stub
 		return "JSDocument";
 	}
-	
-	
-	
-	
-	
 
-	
-	
 	/*
 	 * super
 	 */
-	
+
 	@JSFunction
 	@Override
 	public String html() {
 		// TODO Auto-generated method stub
 		return super.html();
 	}
-
 
 	@JSFunction
 	@Override
@@ -191,7 +192,7 @@ public class JSDocument extends JSElement{
 		// TODO Auto-generated method stub
 		return super.parent();
 	}
-	
+
 	@JSFunction
 	@Override
 	public Object pre() {
@@ -200,32 +201,30 @@ public class JSDocument extends JSElement{
 	}
 
 	@JSFunction
-	public String title()
-	{
+	public String title() {
 		return document.title();
 	}
 
 	@JSFunction
 	@Override
-	public String type()
-	{
+	public String type() {
 		return "document";
 	}
-	
+
 	@JSFunction
 	@Override
 	public String regex(String regexstr) {
 		// TODO Auto-generated method stub
 		return super.regex(regexstr);
 	}
+
 	@JSFunction
 	@Override
 	public Object select(String selector) {
 		// TODO Auto-generated method stub
 		return super.select(selector);
 	}
-	
-	
+
 	@JSFunction
 	@Override
 	public Object siblings() {
@@ -239,12 +238,14 @@ public class JSDocument extends JSElement{
 		// TODO Auto-generated method stub
 		super.traverse(fObj);
 	}
+
 	@JSFunction
 	@Override
 	public Object table(Object index) {
 		// TODO Auto-generated method stub
 		return super.table(index);
 	}
+
 	@JSFunction
 	@Override
 	public Object tbody(Object index) {
@@ -272,12 +273,14 @@ public class JSDocument extends JSElement{
 		// TODO Auto-generated method stub
 		return super.tr(index);
 	}
+
 	@JSFunction
 	@Override
 	public String tag() {
 		// TODO Auto-generated method stub
 		return super.tag();
 	}
+
 	@JSFunction
 	@Override
 	public String tagName() {
@@ -299,13 +302,4 @@ public class JSDocument extends JSElement{
 		return super.ul(index);
 	}
 
-	
-
-	
-
-	
-	
-	
-	
-	
 }
