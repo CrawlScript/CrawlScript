@@ -7,8 +7,11 @@ CrawlScript主页：http://crawlscript.github.io/
 CrawlScript是跨平台的,在任何有JDK环境的电脑上都可以运行，无论是windows、linux还是unix。
 
 运行CrawlScript的方法：
+
 1.WINDOWS：进入CrawlScript文件夹，双击crawlscript.bat。
+
 2.LINUX：用命令行进入CrawlScript文件夹，执行sh crawlscript.sh。
+
 测试：输入doc=$("http://www.baidu.com") ，回车，可看到百度网页的所有文字。
       继续输入print(doc.a()) ，回车，可看到百度网页的所有超链接中的文字。
 
