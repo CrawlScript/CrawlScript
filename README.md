@@ -6,12 +6,10 @@ CrawlScript主页：http://crawlscript.github.io/
 
 CrawlScript是跨平台的,在任何有JDK环境的电脑上都可以运行，无论是windows、linux还是unix。
 
-运行CrawlScript的方法：用命令行进入工程里的CrawlScript-bin文件夹，java -jar crawlscript.jar即可进入crawlscript的shell。输入doc=$("http://www.baidu.com") ，回车，可看到百度网页的所有文字。
-
-运行CrawlScript源码的方法：将工程中的CrawlScript文件夹，用eclipse以导入已有项目的方式导入，运行项目中的MyShell.java即可打开脚本shell，在shell中即可编写CrawlScript脚本，例如: 
-doc=$("http://www.baidu.com");
-print(doc.a());
-
-可看到百度网页的所有超链接中的文字。
+运行CrawlScript的方法：
+1.WINDOWS：进入CrawlScript文件夹，双击crawlscript.bat。
+2.LINUX：用命令行进入CrawlScript文件夹，执行sh crawlscript.sh。
+测试：输入doc=$("http://www.baidu.com") ，回车，可看到百度网页的所有文字。
+      继续输入print(doc.a()) ，回车，可看到百度网页的所有超链接中的文字。
 
 相关教程和API可查看CrawlScript主页：http://crawlscript.github.io/
