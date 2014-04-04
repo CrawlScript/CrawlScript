@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<tea-plugins>
+<!-- 
+ <include>org.crawlscript.robot.JSDocument</include>
+ <include>org.crawlscript.robot.JSElement</include>
+ <include>org.crawlscript.robot.JSElements</include>
+ <include>org.crawlscript.robot.JSTextnode</include>
+  -->
+</tea-plugins>
